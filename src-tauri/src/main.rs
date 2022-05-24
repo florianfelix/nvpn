@@ -10,8 +10,8 @@ use tauri::{CustomMenuItem, SystemTrayMenu, SystemTrayMenuItem};
 
 fn main() {
     // here `"quit".to_string()` defines the menu item id, and the second parameter is the menu item label.
-    let vpnconnect = CustomMenuItem::new("vpnconnect".to_string(), "VPN Connect");
-    let vpndisconnect = CustomMenuItem::new("vpndisconnect".to_string(), "VPN Disconnect");
+    let vpnconnect = CustomMenuItem::new("vpnconnect".to_string(), "Connect");
+    let vpndisconnect = CustomMenuItem::new("vpndisconnect".to_string(), "Disconnect");
     let tray_menu = SystemTrayMenu::new()
         .add_item(vpnconnect)
         .add_native_item(SystemTrayMenuItem::Separator)
