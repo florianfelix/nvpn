@@ -12,8 +12,11 @@ fn main() {
     // here `"quit".to_string()` defines the menu item id, and the second parameter is the menu item label.
     let vpnconnect = CustomMenuItem::new("vpnconnect".to_string(), "Connect");
     let vpndisconnect = CustomMenuItem::new("vpndisconnect".to_string(), "Disconnect");
+    let vpnconnectfrankfurt = CustomMenuItem::new("vpnconnectfrankfurt".to_string(), "Connect Frankfurt");
     let tray_menu = SystemTrayMenu::new()
         .add_item(vpnconnect)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(vpnconnectfrankfurt)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(vpndisconnect);
 
@@ -26,6 +29,10 @@ fn main() {
                 "vpnconnect" => {
                     println!("Connecting");
                     connectnord();
+                }
+                "vpnconnectfrankfurt" => {
+                    println!("Connecting Frankfurt");
+                    connectnordfrankfurt();
                 }
                 "vpndisconnect" => {
                     println!("Disconnecting");
@@ -45,6 +52,16 @@ fn connectnord() {
     let output = Command::new("nordvpn")
         .arg("c")
         .arg("p2p")
+        .spawn()
+        .expect("failed to execute process");
+    // let hello = output.stdout;
+    println!("{:?}", output);
+}
+
+fn connectnordfrankfurt() {
+    let output = Command::new("nordvpn")
+        .arg("c")
+        .arg("frankfurt")
         .spawn()
         .expect("failed to execute process");
     // let hello = output.stdout;
