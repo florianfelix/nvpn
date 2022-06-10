@@ -13,10 +13,13 @@ fn main() {
     let vpnconnect = CustomMenuItem::new("vpnconnect".to_string(), "Connect");
     let vpndisconnect = CustomMenuItem::new("vpndisconnect".to_string(), "Disconnect");
     let vpnconnectfrankfurt = CustomMenuItem::new("vpnconnectfrankfurt".to_string(), "Connect Frankfurt");
+    let restore = CustomMenuItem::new("restore".to_string(), "Restore resolve.conf");
     let tray_menu = SystemTrayMenu::new()
         .add_item(vpnconnect)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(vpnconnectfrankfurt)
+        .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(restore)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(vpndisconnect);
 
@@ -37,6 +40,10 @@ fn main() {
                 "vpndisconnect" => {
                     println!("Disconnecting");
                     disconnectnord();
+                }
+                "restore" => {
+                    println!("Resoring resolve.conf");
+                    restore_resolve();
                 }
                 _ => {}
             },
@@ -71,6 +78,16 @@ fn connectnordfrankfurt() {
 fn disconnectnord() {
   let output = Command::new("nordvpn")
       .arg("d")
+      .spawn()
+      .expect("failed to execute process");
+  // let hello = output.stdout;
+  println!("{:?}", output);
+}
+
+fn restore_resolve() {
+  let output = Command::new("terminator")
+    //   .arg("-e")
+    //   .arg("res")
       .spawn()
       .expect("failed to execute process");
   // let hello = output.stdout;
